@@ -1,11 +1,12 @@
-def d_list(x):
-    dd = []
-    for i in range(1, int(x**0.5)+1):
-        if x % i == 0:
-            dd.append(i)
-            if i != x//i:
-                dd.append(x//i)
-    return sorted(dd)
+def divisors_list(x):
+    # создание списка делителей перебором до корня
+    listy = [i for i in range(1, int(x ** 0.5) + 1) if x % i == 0]
+
+    # добавляем делители x // i (кроме случая, когда i равно x // i) в обратном порядке
+    listy += [x // i for i in reversed(listy) if i != x // i]
+
+    # возвращаем этот список отсортированным
+    return sorted(listy)
 
 
 def rev_key(string, key):
@@ -33,10 +34,11 @@ def kingdom(k, alph, sh):
     else:
         key = k
 
-    number2 = (d_list(len(alph)))[len((d_list(len(alph)))) - 1]
-    for i in range(len(d_list(len(alph)))):
-        if len(key) < (d_list(len(alph)))[i + int(i != len(d_list(len(alph))) - 1)]:
-            number2 = (d_list(len(alph)))[i + int(len(alph) % len(key) != 0)]
+    number2 = (divisors_list(len(alph)))[len((divisors_list(len(alph)))) - 1]
+    for i in range(len(divisors_list(len(alph)))):
+        if len(key) < (divisors_list(len(alph)))[i + int(i != len(divisors_list(len(alph))) - 1)]:
+            number2 = (divisors_list(len(alph)))[
+                i + int(len(alph) % len(key) != 0)]
             break
 
     listx = []
@@ -82,10 +84,11 @@ def sh_cesarlen(stri, shd, king):
     if len(alph) % len(stri) == 0:
         stri = ''.join(reversed(stri))
 
-    number1 = (d_list(len(alph)))[len((d_list(len(alph)))) - 1]
-    for i in range(len(d_list(len(alph)))):
-        if len(stri) < (d_list(len(alph)))[i + int(i != len(d_list(len(alph))) - 1)]:
-            number1 = (d_list(len(alph)))[i + int(len(alph) % len(stri) != 0)]
+    number1 = (divisors_list(len(alph)))[len((divisors_list(len(alph)))) - 1]
+    for i in range(len(divisors_list(len(alph)))):
+        if len(stri) < (divisors_list(len(alph)))[i + int(i != len(divisors_list(len(alph))) - 1)]:
+            number1 = (divisors_list(len(alph)))[
+                i + int(len(alph) % len(stri) != 0)]
             break
 
     listy = []
