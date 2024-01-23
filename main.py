@@ -90,7 +90,8 @@ def sh_cesarlen(stri, shd, king):
 
     listy = []
     for i in range(len(alph)//number1):
-        listy.append(''.join(reversed(alph[0 + i * number1:number1 * (i + 1)])))
+        listy.append(
+            ''.join(reversed(alph[0 + i * number1:number1 * (i + 1)])))
     listy.append('')
     for i in range((len(listy) - 1)//2):
         if i % 2 != 0:
@@ -127,7 +128,8 @@ def sh_cesarlen(stri, shd, king):
 seq = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
 print('(REMEMBER that only characters of this sequence (and spaces) can be used in the text:')
 print()
-print('!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrs')
+print(
+    '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrs')
 print('tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё')
 print()
 print('ALSO REMEMBER that the key should only consist of non-repeating characters)')
@@ -145,7 +147,7 @@ while felper:
     if string[0] == ' ':
         string = string[1:]
     for i in range(len(string)):
-        if not(string[i] in seq) and string[i] != ' ':
+        if not (string[i] in seq) and string[i] != ' ':
             string = string[0:i] + '0' + string[i + 1:len(string)]
     for i in range(2, len(string)):
         string = string.replace(' ' * i, ' ')
