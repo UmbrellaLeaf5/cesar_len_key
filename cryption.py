@@ -47,35 +47,32 @@ def shuffled_alphabet(key: str, alph: str) -> str:
     if (alph == ''):
         return alph
 
-    # MEANS: длина алфавита
-    a_len = len(alph)
-
     # MEANS: список делителей числа - длины алфавита
-    alph_divs = divisors_list(a_len)
-
-    # MEANS: количество делителей числа - длины алфавита
-    divs_amount = len(alph_divs)
-
-    # MEANS: последний делитель из списка делителй числа - длины алфавита
-    last_div = alph_divs[divs_amount - 1]
+    alph_divs = divisors_list(len(alph))
 
     # переделываем ключ
-    key = remaked_key(key, a_len)
+    key = remaked_key(key, len(alph))
 
-    print("len_key: ", len(key))
-    for i in range(divs_amount):
-        print("current div: ", alph_divs[i + int(i != divs_amount - 1)],
-              len(key) < alph_divs[i + int(i != divs_amount - 1)])
-        if len(key) < alph_divs[i + int(i != divs_amount - 1)]:
-            last_div = alph_divs[i + int(a_len % len(key) != 0)]
-            break
-    print("last_div_value: ",
-          alph_divs[i + int(a_len % len(key) != 0)])
+    # MEANS: нужный делитель, по которому будет мешаться алфавит
+    # (изначально равен последнему, чтобы обработать случай len(key) == len(alph))
+    needed_div = alph_divs[len(alph_divs) - 1]
 
-    listx = []
-    for i in range(a_len // last_div):
-        listx.append(
-            alph[0 + i * last_div:last_div * (i + 1)])
+    # лучший случай: алфавит можно ровно поделить на длину ключа
+    # (при этом ключ не равен по длине алфавиту)
+    if (len(alph) % len(key) == 0 and len(alph) != len(key)):
+        needed_div = len(key)
+
+    else:
+        # по убыванию ищем близжайший делитель к числу - длине ключа
+        for i in range(len(alph_divs) - 1, 0, -1):
+            if len(key) > alph_divs[i]:
+                # при нахождении такового, берем предыдущий, чтобы не обрезать ключ
+                needed_div = alph_divs[i + 1]
+                break
+
+    # MEANS: разделенный на кусочки длинной needed_div алфавит
+    listed_alph = [alph[i: i + needed_div]
+                   for i in range(0, len(alph), needed_div)]
 
     sort_key_list = []
     for i in range(len(key)):
@@ -91,19 +88,19 @@ def shuffled_alphabet(key: str, alph: str) -> str:
             if key[i] == first_key[j]:
                 final_key.append(sort_key_list[j])
 
-    if len(key) != last_div:
+    if len(key) != needed_div:
         x = 0
-        for i in range(len(key), last_div):
+        for i in range(len(key), needed_div):
             final_key.append(len(key) + x)
             x += 1
 
-    for i in range(len(listx)):
+    for i in range(len(listed_alph)):
         temp = ''
-        for j in range(len(listx[i])):
-            temp += (listx[i])[final_key[j]]
-        listx[i] = temp
+        for j in range(len(listed_alph[i])):
+            temp += (listed_alph[i])[final_key[j]]
+        listed_alph[i] = temp
 
     alph = ''
-    for i in range(len(listx)):
-        alph += listx[i]
+    for i in range(len(listed_alph)):
+        alph += listed_alph[i]
     return alph
