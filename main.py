@@ -57,7 +57,7 @@ def sh_cesarlen(stri, shd, king):
                     else:
                         stri2 += new_alph[j +
                                           (input_len % a_len) - a_len]
-        return stri2
+
     if shd == '0':
         for i in range(input_len):
             for j in range(a_len):
@@ -69,7 +69,7 @@ def sh_cesarlen(stri, shd, king):
                     else:
                         stri2 += new_alph[a_len -
                                           (input_len % a_len) + j]
-        return stri2
+    return stri2
 
 
 def main():
@@ -137,7 +137,7 @@ def main():
         x += 1
         io = i
     listw[len(listw) - 1] = (listw[len(listw) - 1])[0:-1]
-    result = ''
+    result: str = ''
     for i in range(len(listw) - 1):
         if listw[i] != ' ':
             result += sh_cesarlen(listw[i], flack, kluch)
