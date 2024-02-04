@@ -1,41 +1,78 @@
+
+# MEANS: алфавит, используемый во всей программе
 alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
 
+# MEANS: длина алфавита, используемого во всей программе
+a_len = len(alph)
 
-def divisors_list(x):
+
+def divisors_list(x: int) -> list:
+    """
+    Вычисляет уникальные делители числа
+
+    ARGS:
+        x (int): число
+
+    RETURNS:
+        list: список делителей
+    """
+
+    # MEANS: список делителей
+    d_list: list
+
     # создание списка делителей перебором до корня
-    listy = [i for i in range(1, int(x ** 0.5) + 1) if x % i == 0]
+    d_list = [i for i in range(1, int(x ** 0.5) + 1) if x % i == 0]
 
     # добавляем делители x // i (кроме случая, когда i равно x // i) в обратном порядке
-    listy += [x // i for i in reversed(listy) if i != x // i]
+    d_list += [x // i for i in reversed(d_list) if i != x // i]
 
     # возвращаем этот список отсортированным
-    return sorted(listy)
+    return sorted(d_list)
 
 
-def kingdom(k, alphabet):
+def shuffled_alphabet(key: str, alphabet: str) -> str:
+    """
+    Перемешивает куски алфавита, используя длину ключа
+
+    ARGS:
+        key (str): ключ
+        alphabet (str): алфавит
+
+    RETURNS:
+        str: перемешанный алфавит
+    """
+
+    # MEANS: длина алфавита
     alph_len = len(alphabet)
 
-    if len(k) != len(set(k)):
-        for i in range(len(k)):
-            if k[i] in k[0:i]:
-                k = k[0:i] + ' ' + k[i + 1:len(k)]
-    k = k.replace(' ', '')
+    # удаляем повторяющиеся символы, сохраняя порядок
+    if len(key) != len(set(key)):
+        key = ''.join(dict.fromkeys(key))
 
-    if len(k) > alph_len:
-        key = k[0:alph_len]
-    else:
-        key = k
+    # удаляем пробелы
+    key = key.replace(' ', '')
 
-    number2 = (divisors_list(alph_len))[len((divisors_list(alph_len))) - 1]
-    for i in range(len(divisors_list(alph_len))):
-        if len(key) < (divisors_list(alph_len))[i + int(i != len(divisors_list(alph_len)) - 1)]:
-            number2 = (divisors_list(alph_len))[
+    # обрезаем, если ключ оказался длиннее алфавита
+    if len(key) > alph_len:
+        key = key[0:alph_len]
+
+    # MEANS: список делителей числа - длины алфавита
+    alph_d_list = divisors_list(alph_len)
+
+    # MEANS: последний делитель числа - длины алфавита
+    last_alph_len_divisor = (alph_d_list)[
+        len((alph_d_list)) - 1]
+
+    for i in range(len(alph_d_list)):
+        if len(key) < (alph_d_list)[i + int(i != len(alph_d_list) - 1)]:
+            last_alph_len_divisor = (alph_d_list)[
                 i + int(alph_len % len(key) != 0)]
             break
 
     listx = []
-    for i in range(alph_len // number2):
-        listx.append(alphabet[0 + i * number2:number2 * (i + 1)])
+    for i in range(alph_len // last_alph_len_divisor):
+        listx.append(
+            alphabet[0 + i * last_alph_len_divisor:last_alph_len_divisor * (i + 1)])
 
     sort_key_list = []
     for i in range(len(key)):
@@ -51,9 +88,9 @@ def kingdom(k, alphabet):
             if key[i] == first_key[j]:
                 final_key.append(sort_key_list[j])
 
-    if len(key) != number2:
+    if len(key) != last_alph_len_divisor:
         x = 0
-        for i in range(len(key), number2):
+        for i in range(len(key), last_alph_len_divisor):
             final_key.append(len(key) + x)
             x += 1
 
@@ -70,24 +107,26 @@ def kingdom(k, alphabet):
 
 
 def sh_cesarlen(stri, shd, king):
-    new_alph = kingdom(king, alph)
+    new_alph = shuffled_alphabet(king, alph)
 
-    alph_len = len(alph)
     input_len = len(stri)
 
-    if alph_len % input_len == 0:
+    if a_len % input_len == 0:
         stri = ''.join(reversed(stri))
 
-    last_alph_len_divisor = (divisors_list(alph_len))[
-        len((divisors_list(alph_len))) - 1]
-    for i in range(len(divisors_list(alph_len))):
-        if input_len < (divisors_list(alph_len))[i + int(i != len(divisors_list(alph_len)) - 1)]:
-            last_alph_len_divisor = (divisors_list(alph_len))[
-                i + int(alph_len % input_len != 0)]
+    # MEANS: список делителей числа - длины алфавита
+    alph_d_list = divisors_list(a_len)
+
+    last_alph_len_divisor = (alph_d_list)[
+        len((alph_d_list)) - 1]
+    for i in range(len(alph_d_list)):
+        if input_len < (alph_d_list)[i + int(i != len(alph_d_list) - 1)]:
+            last_alph_len_divisor = (alph_d_list)[
+                i + int(a_len % input_len != 0)]
             break
 
     listy = []
-    for i in range(alph_len//last_alph_len_divisor):
+    for i in range(a_len//last_alph_len_divisor):
         listy.append(
             ''.join(reversed(new_alph[0 + i * last_alph_len_divisor:last_alph_len_divisor * (i + 1)])))
     listy.append('')
@@ -103,25 +142,25 @@ def sh_cesarlen(stri, shd, king):
     stri2 = ''
     if shd == '1':
         for i in range(input_len):
-            for j in range(alph_len):
+            for j in range(a_len):
                 if stri[i] == new_alph[j]:
-                    if j + (input_len % alph_len) < alph_len:
-                        stri2 += new_alph[j + (input_len % alph_len)]
+                    if j + (input_len % a_len) < a_len:
+                        stri2 += new_alph[j + (input_len % a_len)]
                     else:
                         stri2 += new_alph[j +
-                                          (input_len % alph_len) - alph_len]
+                                          (input_len % a_len) - a_len]
         return stri2
     if shd == '0':
         for i in range(input_len):
-            for j in range(alph_len):
+            for j in range(a_len):
                 if stri[i] == new_alph[j]:
-                    if j - (input_len % alph_len) > 0:
-                        stri2 += new_alph[j - (input_len % alph_len)]
-                    elif (input_len % alph_len) == j:
+                    if j - (input_len % a_len) > 0:
+                        stri2 += new_alph[j - (input_len % a_len)]
+                    elif (input_len % a_len) == j:
                         stri2 += new_alph[0]
                     else:
-                        stri2 += new_alph[alph_len -
-                                          (input_len % alph_len) + j]
+                        stri2 += new_alph[a_len -
+                                          (input_len % a_len) + j]
         return stri2
 
 
