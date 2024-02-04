@@ -1,0 +1,12 @@
+# VS code Folders
+*.vscode/
+
+# Python Folders
+*__pycache__/
+*.pytest_cache
+.venv
+
+# Other files
+*.docx
+*.doc
+*.ini
