@@ -1,5 +1,5 @@
 from utility import divisors_list
-from cryption import shuffled_alphabet
+from alphabet_shuffle import shuffled_alphabet
 
 # MEANS: алфавит, используемый во всей программе
 alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
