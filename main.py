@@ -1,4 +1,5 @@
 from utility import divisors_list
+from cryption import shuffled_alphabet
 
 # MEANS: алфавит, используемый во всей программе
 alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
@@ -6,81 +7,11 @@ alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnop
 # MEANS: длина алфавита, используемого во всей программе
 a_len = len(alph)
 
+# MEANS: список делителей числа - длины алфавита
+alph_divs = divisors_list(a_len)
 
-def shuffled_alphabet(key: str, alphabet: str) -> str:
-    """
-    Перемешивает куски алфавита, используя длину ключа
-
-    ARGS:
-        key (str): ключ
-        alphabet (str): алфавит
-
-    RETURNS:
-        str: перемешанный алфавит
-    """
-
-    # MEANS: длина алфавита
-    alph_len = len(alphabet)
-
-    # удаляем повторяющиеся символы, сохраняя порядок
-    if len(key) != len(set(key)):
-        key = ''.join(dict.fromkeys(key))
-
-    # удаляем пробелы
-    key = key.replace(' ', '')
-
-    # обрезаем, если ключ оказался длиннее алфавита
-    if len(key) > alph_len:
-        key = key[0:alph_len]
-
-    # MEANS: список делителей числа - длины алфавита
-    alph_d_list = divisors_list(alph_len)
-
-    # MEANS: последний делитель числа - длины алфавита
-    last_alph_len_divisor = (alph_d_list)[
-        len((alph_d_list)) - 1]
-
-    for i in range(len(alph_d_list)):
-        if len(key) < (alph_d_list)[i + int(i != len(alph_d_list) - 1)]:
-            last_alph_len_divisor = (alph_d_list)[
-                i + int(alph_len % len(key) != 0)]
-            break
-
-    listx = []
-    for i in range(alph_len // last_alph_len_divisor):
-        listx.append(
-            alphabet[0 + i * last_alph_len_divisor:last_alph_len_divisor * (i + 1)])
-
-    sort_key_list = []
-    for i in range(len(key)):
-        sort_key_list.append(i)
-    first_key = []
-    for i in range(len(key)):
-        first_key.append(key[i])
-    first_key = sorted(first_key)
-
-    final_key = []
-    for i in range(len(key)):
-        for j in range(len(key)):
-            if key[i] == first_key[j]:
-                final_key.append(sort_key_list[j])
-
-    if len(key) != last_alph_len_divisor:
-        x = 0
-        for i in range(len(key), last_alph_len_divisor):
-            final_key.append(len(key) + x)
-            x += 1
-
-    for i in range(len(listx)):
-        temp = ''
-        for j in range(len(listx[i])):
-            temp += (listx[i])[final_key[j]]
-        listx[i] = temp
-
-    alphabet = ''
-    for i in range(len(listx)):
-        alphabet += listx[i]
-    return alphabet
+# MEANS: последний делитель из списка делителй длины алфавита
+last_div = alph_divs[len(alph_divs) - 1]
 
 
 def sh_cesarlen(stri, shd, king):
