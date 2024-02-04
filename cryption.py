@@ -1,6 +1,36 @@
 from utility import divisors_list
 
 
+def remaked_key(key: str, max_len: int) -> str:
+    """
+    Меняет ключ так, чтобы его можно было использовать для перемешивания алфавита
+
+    ARGS:
+        key (str): ключ
+        max_len (int): максимальная допустиамя длина для ключа
+
+    RETURNS:
+        str: измененный ключ
+    """
+
+    # удаляем повторяющиеся символы, сохраняя порядок
+    if len(key) != len(set(key)):
+        key = ''.join(dict.fromkeys(key))
+
+    # удаляем пробелы
+    key = key.replace(' ', '')
+
+    # обрезаем, если ключ оказался длиннее алфавита
+    if len(key) > max_len:
+        key = key[0:max_len]
+
+    # если после этих операций ключ оказался пустым, то он некорректен
+    if (key == ''):
+        raise (ValueError("invalid key"))
+
+    return key
+
+
 def shuffled_alphabet(key: str, alph: str) -> str:
     """
     Перемешивает куски алфавита, используя ключ
@@ -13,31 +43,34 @@ def shuffled_alphabet(key: str, alph: str) -> str:
         str: перемешанный алфавит
     """
 
+    # если алфавит ничего не содержит - с ним невозможно работать
+    if (alph == ''):
+        return alph
+
     # MEANS: длина алфавита
     a_len = len(alph)
 
     # MEANS: список делителей числа - длины алфавита
     alph_divs = divisors_list(a_len)
 
-    # MEANS: последний делитель из списка делителй длины алфавита
-    last_div = alph_divs[len(alph_divs) - 1]
+    # MEANS: количество делителей числа - длины алфавита
+    divs_amount = len(alph_divs)
 
-    # удаляем повторяющиеся символы, сохраняя порядок
-    if len(key) != len(set(key)):
-        key = ''.join(dict.fromkeys(key))
+    # MEANS: последний делитель из списка делителй числа - длины алфавита
+    last_div = alph_divs[divs_amount - 1]
 
-    # удаляем пробелы
-    key = key.replace(' ', '')
+    # переделываем ключ
+    key = remaked_key(key, a_len)
 
-    # обрезаем, если ключ оказался длиннее алфавита
-    if len(key) > a_len:
-        key = key[0:a_len]
-
-    for i in range(len(alph_divs)):
-        if len(key) < (alph_divs)[i + int(i != len(alph_divs) - 1)]:
-            last_div = (alph_divs)[
-                i + int(a_len % len(key) != 0)]
+    print("len_key: ", len(key))
+    for i in range(divs_amount):
+        print("current div: ", alph_divs[i + int(i != divs_amount - 1)],
+              len(key) < alph_divs[i + int(i != divs_amount - 1)])
+        if len(key) < alph_divs[i + int(i != divs_amount - 1)]:
+            last_div = alph_divs[i + int(a_len % len(key) != 0)]
             break
+    print("last_div_value: ",
+          alph_divs[i + int(a_len % len(key) != 0)])
 
     listx = []
     for i in range(a_len // last_div):
