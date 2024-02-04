@@ -1,3 +1,6 @@
+alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
+
+
 def divisors_list(x):
     # создание списка делителей перебором до корня
     listy = [i for i in range(1, int(x ** 0.5) + 1) if x % i == 0]
@@ -9,41 +12,30 @@ def divisors_list(x):
     return sorted(listy)
 
 
-def rev_key(string, key):
-    res = ''
-    for i in range(len(string)):
-        res += string[int(key[i])]
+def kingdom(k, alphabet):
+    alph_len = len(alphabet)
 
-    res2 = []
-    for i in range(len(string)):
-        for j in range(len(string)):
-            if string[i] == res[j]:
-                res2.append(j)
-    return res2
-
-
-def kingdom(k, alph, sh):
     if len(k) != len(set(k)):
         for i in range(len(k)):
             if k[i] in k[0:i]:
                 k = k[0:i] + ' ' + k[i + 1:len(k)]
     k = k.replace(' ', '')
 
-    if len(k) > len(alph):
-        key = k[0:len(alph)]
+    if len(k) > alph_len:
+        key = k[0:alph_len]
     else:
         key = k
 
-    number2 = (divisors_list(len(alph)))[len((divisors_list(len(alph)))) - 1]
-    for i in range(len(divisors_list(len(alph)))):
-        if len(key) < (divisors_list(len(alph)))[i + int(i != len(divisors_list(len(alph))) - 1)]:
-            number2 = (divisors_list(len(alph)))[
-                i + int(len(alph) % len(key) != 0)]
+    number2 = (divisors_list(alph_len))[len((divisors_list(alph_len))) - 1]
+    for i in range(len(divisors_list(alph_len))):
+        if len(key) < (divisors_list(alph_len))[i + int(i != len(divisors_list(alph_len)) - 1)]:
+            number2 = (divisors_list(alph_len))[
+                i + int(alph_len % len(key) != 0)]
             break
 
     listx = []
-    for i in range(len(alph) // number2):
-        listx.append(alph[0 + i * number2:number2 * (i + 1)])
+    for i in range(alph_len // number2):
+        listx.append(alphabet[0 + i * number2:number2 * (i + 1)])
 
     sort_key_list = []
     for i in range(len(key)):
@@ -71,137 +63,147 @@ def kingdom(k, alph, sh):
             temp += (listx[i])[final_key[j]]
         listx[i] = temp
 
-    alph = ''
+    alphabet = ''
     for i in range(len(listx)):
-        alph += listx[i]
-    return alph
+        alphabet += listx[i]
+    return alphabet
 
 
 def sh_cesarlen(stri, shd, king):
-    alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
-    alph = kingdom(king, alph, shd)
+    new_alph = kingdom(king, alph)
 
-    if len(alph) % len(stri) == 0:
+    alph_len = len(alph)
+    input_len = len(stri)
+
+    if alph_len % input_len == 0:
         stri = ''.join(reversed(stri))
 
-    number1 = (divisors_list(len(alph)))[len((divisors_list(len(alph)))) - 1]
-    for i in range(len(divisors_list(len(alph)))):
-        if len(stri) < (divisors_list(len(alph)))[i + int(i != len(divisors_list(len(alph))) - 1)]:
-            number1 = (divisors_list(len(alph)))[
-                i + int(len(alph) % len(stri) != 0)]
+    last_alph_len_divisor = (divisors_list(alph_len))[
+        len((divisors_list(alph_len))) - 1]
+    for i in range(len(divisors_list(alph_len))):
+        if input_len < (divisors_list(alph_len))[i + int(i != len(divisors_list(alph_len)) - 1)]:
+            last_alph_len_divisor = (divisors_list(alph_len))[
+                i + int(alph_len % input_len != 0)]
             break
 
     listy = []
-    for i in range(len(alph)//number1):
+    for i in range(alph_len//last_alph_len_divisor):
         listy.append(
-            ''.join(reversed(alph[0 + i * number1:number1 * (i + 1)])))
+            ''.join(reversed(new_alph[0 + i * last_alph_len_divisor:last_alph_len_divisor * (i + 1)])))
     listy.append('')
     for i in range((len(listy) - 1)//2):
         if i % 2 != 0:
             listy[len(listy) - 1] = listy[i]
             listy[i] = listy[len(listy) - 1 - i]
             listy[len(listy) - 1 - i] = listy[len(listy) - 1]
-    alph = ''
+    new_alph = ''
     for i in range(len(listy) - 1):
-        alph += listy[i]
+        new_alph += listy[i]
 
     stri2 = ''
     if shd == '1':
-        for i in range(len(stri)):
-            for j in range(len(alph)):
-                if stri[i] == alph[j]:
-                    if j + (len(stri) % len(alph)) < len(alph):
-                        stri2 += alph[j + (len(stri) % len(alph))]
+        for i in range(input_len):
+            for j in range(alph_len):
+                if stri[i] == new_alph[j]:
+                    if j + (input_len % alph_len) < alph_len:
+                        stri2 += new_alph[j + (input_len % alph_len)]
                     else:
-                        stri2 += alph[j + (len(stri) % len(alph)) - len(alph)]
+                        stri2 += new_alph[j +
+                                          (input_len % alph_len) - alph_len]
         return stri2
     if shd == '0':
-        for i in range(len(stri)):
-            for j in range(len(alph)):
-                if stri[i] == alph[j]:
-                    if j - (len(stri) % len(alph)) > 0:
-                        stri2 += alph[j - (len(stri) % len(alph))]
-                    elif (len(stri) % len(alph)) == j:
-                        stri2 += alph[0]
+        for i in range(input_len):
+            for j in range(alph_len):
+                if stri[i] == new_alph[j]:
+                    if j - (input_len % alph_len) > 0:
+                        stri2 += new_alph[j - (input_len % alph_len)]
+                    elif (input_len % alph_len) == j:
+                        stri2 += new_alph[0]
                     else:
-                        stri2 += alph[len(alph) - (len(stri) % len(alph)) + j]
+                        stri2 += new_alph[alph_len -
+                                          (input_len % alph_len) + j]
         return stri2
 
 
-seq = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
-print('(REMEMBER that only characters of this sequence (and spaces) can be used in the text:')
-print()
-print(
-    '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrs')
-print('tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё')
-print()
-print('ALSO REMEMBER that the key should only consist of non-repeating characters)')
-print('(FAILURE TO FOLLOW the instructions above leads to incorrect operation of the program)')
-print()
+def main():
+    print('(REMEMBER that only characters of this sequence (and spaces) can be used in the text:')
+    print()
+    print(
+        '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrs')
+    print('tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё')
+    print()
+    print('ALSO REMEMBER that the key should only consist of non-repeating characters)')
+    print('(FAILURE TO FOLLOW the instructions above leads to incorrect operation of the program)')
+    print()
 
-string = ''
+    string = ''
 
-felper = True
-while felper:
-    print('Enter text to crypt:')
-    string = input()
-    if string == '':
+    felper = True
+    while felper:
+        print('Enter text to crypt:')
+        string = input()
+        if string == '':
+            string += ' '
+        if string[0] == ' ':
+            string = string[1:]
+        for i in range(len(string)):
+            if not (string[i] in alph) and string[i] != ' ':
+                string = string[0:i] + '0' + string[i + 1:len(string)]
+        for i in range(2, len(string)):
+            string = string.replace(' ' * i, ' ')
         string += ' '
-    if string[0] == ' ':
-        string = string[1:]
-    for i in range(len(string)):
-        if not (string[i] in seq) and string[i] != ' ':
-            string = string[0:i] + '0' + string[i + 1:len(string)]
-    for i in range(2, len(string)):
-        string = string.replace(' ' * i, ' ')
-    string += ' '
-    if string.replace(' ', '') == '':
-        print('This does not work, the text must not consist of only spaces and must not be empty.')
-        print()
-    else:
-        felper = False
+        if string.replace(' ', '') == '':
+            print(
+                'This does not work, the text must not consist of only spaces and must not be empty.')
+            print()
+        else:
+            felper = False
 
-print()
-flack = ''
-while flack != '0':
-    if flack == '1':
-        break
-    if flack != '':
-        print('Enter 0 or 1.')
-        print()
-    print('Encryption (Enter 1) or Decryption (Enter 0)?')
-    flack = input()
-    if flack == 'Encryption' or flack == 'encryption':
-        flack = '1'
-    elif flack == 'Decryption' or flack == 'decryption':
-        flack = '0'
+    print()
+    flack = ''
+    while flack != '0':
+        if flack == '1':
+            break
+        if flack != '':
+            print('Enter 0 or 1.')
+            print()
+        print('Encryption (Enter 1) or Decryption (Enter 0)?')
+        flack = input()
+        if flack == 'Encryption' or flack == 'encryption':
+            flack = '1'
+        elif flack == 'Decryption' or flack == 'decryption':
+            flack = '0'
 
-print()
-print('Enter key:')
-kluch = input()
+    print()
+    print('Enter key:')
+    kluch = input()
 
-listw = []
-j = 0
-x = 0
-io = ''
-for i in string:
-    if i == ' ' and io != i:
-        listw.append(string[j:x])
-        listw.append(' ')
-        j = x + 1
-    x += 1
-    io = i
-listw[len(listw) - 1] = (listw[len(listw) - 1])[0:-1]
-result = ''
-for i in range(len(listw) - 1):
-    if listw[i] != ' ':
-        result += sh_cesarlen(listw[i], flack, kluch)
-    else:
-        result += listw[i]
+    listw = []
+    j = 0
+    x = 0
+    io = ''
+    for i in string:
+        if i == ' ' and io != i:
+            listw.append(string[j:x])
+            listw.append(' ')
+            j = x + 1
+        x += 1
+        io = i
+    listw[len(listw) - 1] = (listw[len(listw) - 1])[0:-1]
+    result = ''
+    for i in range(len(listw) - 1):
+        if listw[i] != ' ':
+            result += sh_cesarlen(listw[i], flack, kluch)
+        else:
+            result += listw[i]
 
-print()
-print('Result (with key ' + kluch + '):')
-print(result)
-print()
-print('Press any key to end...')
-input()
+    print()
+    print('Result (with key ' + kluch + '):')
+    print(result)
+    print()
+    print('Press any key to end...')
+    input()
+
+
+if __name__ == "__main__":
+    main()
