@@ -7,7 +7,7 @@ def remaked_key(key: str, max_len: int) -> str:
 
     ARGS:
         key (str): ключ
-        max_len (int): максимальная допустиамя длина для ключа
+        max_len (int): максимальная допустимая длина для ключа
 
     RETURNS:
         str: измененный ключ
@@ -63,44 +63,32 @@ def shuffled_alphabet(key: str, alph: str) -> str:
         needed_div = len(key)
 
     else:
-        # по убыванию ищем близжайший делитель к числу - длине ключа
+        # по убыванию ищем ближайший делитель к числу - длине ключа
         for i in range(len(alph_divs) - 1, 0, -1):
             if len(key) > alph_divs[i]:
                 # при нахождении такового, берем предыдущий, чтобы не обрезать ключ
                 needed_div = alph_divs[i + 1]
                 break
+    # в цикле выше не нужно никаких рассмотрений доп. случаев,
+    # так как они предусмотрены другими частями кода
 
     # MEANS: разделенный на кусочки длинной needed_div алфавит
     listed_alph = [alph[i: i + needed_div]
                    for i in range(0, len(alph), needed_div)]
 
-    sort_key_list = []
-    for i in range(len(key)):
-        sort_key_list.append(i)
-    first_key = []
-    for i in range(len(key)):
-        first_key.append(key[i])
-    first_key = sorted(first_key)
+    # MEANS: последовательность чисел от 0 до длины ключа
+    numbed_seq = list(range(len(key)))
 
-    final_key = []
-    for i in range(len(key)):
-        for j in range(len(key)):
-            if key[i] == first_key[j]:
-                final_key.append(sort_key_list[j])
+    # MEANS: ключ, содержащий в себе только числа, в порядке символов
+    numbed_key: list = [numbed_seq[sorted(key).index(char)] for char in key]
 
+    # если алфавит нельзя было ровно поделить на длину ключа, то ключ надо удлинить
     if len(key) != needed_div:
-        x = 0
-        for i in range(len(key), needed_div):
-            final_key.append(len(key) + x)
-            x += 1
+        numbed_key.extend(range(len(key), needed_div))
 
+    # перемешиваем каждый элемент listed_alph в порядке numbed_key
     for i in range(len(listed_alph)):
-        temp = ''
-        for j in range(len(listed_alph[i])):
-            temp += (listed_alph[i])[final_key[j]]
-        listed_alph[i] = temp
+        listed_alph[i] = "".join(listed_alph[i][numbed_key[j]]
+                                 for j in range(len(listed_alph[i])))
 
-    alph = ''
-    for i in range(len(listed_alph)):
-        alph += listed_alph[i]
-    return alph
+    return ''.join(listed_alph)
