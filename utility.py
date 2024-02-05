@@ -1,6 +1,7 @@
 def divisors_list(x: int) -> list[int]:
     """
-    Вычисляет уникальные делители числа
+    DOES:
+        вычисляет уникальные делители числа
 
     ARGS:
         x (int): число
@@ -24,8 +25,12 @@ def divisors_list(x: int) -> list[int]:
 
 class switch(object):
     """
-    Специальный класс switch-case
-    (использование почти аналогично C++)
+    MEANS:
+        специальный класс switch-case
+        (использование почти аналогично C++)
+
+    ARGS:
+        object (object): объект, по которому происходит выборка
 
     пример использования:
     x = int(input())
@@ -40,9 +45,6 @@ class switch(object):
             print('Число 4')
         if case(): # default
             print('Другое число')
-
-    ARGS:
-        object (_type_): объект, по которому происходит выборка
     """
 
     def __init__(self, value):
