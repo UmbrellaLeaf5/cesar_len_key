@@ -26,7 +26,7 @@ def remaked_key(key: str, max_len: int) -> str:
 
     # если после этих операций ключ оказался пустым, то он некорректен
     if (key == ''):
-        raise (ValueError("invalid key"))
+        raise ValueError("invalid key")
 
     return key
 
@@ -42,6 +42,10 @@ def shuffled_alphabet(key: str, alph: str) -> str:
     RETURNS:
         str: перемешанный алфавит
     """
+
+    # если в алфавите повторяются символы, то его нельзя брать за алфавит
+    if (len(alph) != len(set(alph))):
+        raise ValueError("invalid alphabet")
 
     # если алфавит ничего не содержит - с ним невозможно работать
     if (alph == ''):
