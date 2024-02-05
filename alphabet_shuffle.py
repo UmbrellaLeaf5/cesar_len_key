@@ -3,7 +3,8 @@ from utility import divisors_list
 
 def remaked_key(key: str, max_len: int) -> list[int]:
     """
-    Меняет ключ так, чтобы его можно было использовать для перемешивания алфавита
+    DOES: 
+        преобразует ключ для использования в перемешивании алфавита
 
     ARGS:
         key (str): ключ
@@ -38,7 +39,8 @@ def remaked_key(key: str, max_len: int) -> list[int]:
 
 def piecewise_shuffled_alphabet(key: str, alph: str) -> list[str]:
     """
-    Перемешивает куски алфавита, используя ключ
+    DOES: 
+        перемешивает куски алфавита, используя ключ
 
     ARGS:
         key (str): ключ
@@ -99,7 +101,8 @@ def piecewise_shuffled_alphabet(key: str, alph: str) -> list[str]:
 
 def shuffled_alphabet(key: str, alph: str) -> str:
     """
-    Перемешивает алфавит, используя ключ
+    DOES:
+        перемешивает алфавит, используя ключ
 
     ARGS:
         key (str): ключ

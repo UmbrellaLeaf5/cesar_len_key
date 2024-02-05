@@ -6,7 +6,8 @@ from utility import switch
 
 class CryptType(Enum):
     """
-    Тип операции: зашифровать или расшифровать
+    MEANS
+        тип операции: зашифровать или расшифровать
 
     ARGS:
         Enum (bool): тип операции
@@ -18,7 +19,9 @@ class CryptType(Enum):
 
 def crypted_word(word: str, shd: CryptType, key: str, alphabet: str) -> str:
     """
-    Шифрует слово по шифру цезаря, используя сдвиг на длину слова по заданному алфавиту
+    DOES:
+        шифрует слово, используя сдвиг по алфавиту
+        (вдохновлено шифром Цезаря)
 
     ARGS:
         word (str): исходной слово
