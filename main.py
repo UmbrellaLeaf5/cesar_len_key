@@ -3,7 +3,7 @@ from alphabet_shuffle import shuffled_alphabet
 from word_cryption import crypted_word, CryptType
 
 # MEANS: алфавит, используемый во всей программе
-alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
+alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrstuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
 
 # MEANS: список делителей числа - длины алфавита
 alph_divs = divisors_list(len(alph))
@@ -16,7 +16,7 @@ def main():
     print('(REMEMBER that only characters of this sequence (and spaces) can be used in the text:')
     print()
     print(
-        '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^abcdefghijklmnopqrs')
+        '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrs')
     print('tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё')
     print()
     print('ALSO REMEMBER that the key should only consist of non-repeating characters)')
@@ -82,7 +82,8 @@ def main():
     result: str = ''
     for i in range(len(listw) - 1):
         if listw[i] != ' ':
-            result += crypted_word(listw[i], flag, kluch)
+            result += crypted_word(listw[i], flag,
+                                   shuffled_alphabet(kluch, alph))
         else:
             result += listw[i]
 
