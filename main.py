@@ -83,7 +83,7 @@ def main():
     for i in range(len(listw) - 1):
         if listw[i] != ' ':
             result += crypted_word(listw[i], flag,
-                                   shuffled_alphabet(kluch, alph))
+                                   kluch, shuffled_alphabet(kluch, alph))
         else:
             result += listw[i]
 
