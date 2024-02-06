@@ -1,3 +1,5 @@
+# Моя небольшая библиотека :)
+
 def divisors_list(x: int) -> list[int]:
     """
     DOES:
@@ -31,42 +33,32 @@ class switch(object):
 
     ARGS:
         object (object): объект, по которому происходит выборка
-
-    пример использования:
-    x = int(input())
-
-    for case in switch(x):
-        if case(1): pass
-        if case(2): pass
-        if case(3): 
-            print('Число от 1 до 3')
-            break
-        if case(4): 
-            print('Число 4')
-        if case(): # default
-            print('Другое число')
     """
 
     def __init__(self, value):
         # значение, которое будем искать
         self.value = value
+
         # для пустых case блоков
         self.fall = False
 
     def __iter__(self):
         """
-        Возвращает один раз метод match и завершается
-        (нужен для использования в цикле for)
+        DOES:
+            возвращает один раз метод match и завершается
+            (нужен для использования в цикле for)
 
         YIELDS:
             bool: нужно ли заходить в тестовый вариант
         """
+
         yield self.match
         raise StopIteration
 
     def match(self, *args) -> bool:
         """
-        Указывает, нужно ли заходить в тестовый вариант
+        DOES:
+            указывает, нужно ли заходить в тестовый вариант
 
         RETURNS:
             bool: нужно ли заходить в тестовый вариант

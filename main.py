@@ -9,11 +9,28 @@ def welcome_message_print():
     """
     DOES:
         выводит приветственное сообщение пользователю
-
     """
 
-    print("WELCOME to the CesarLenKey! This is a program, were you can crypt your text!")
-    print('{:^76}'.format("(just try it, there are interesting algo :)"))
+    print()
+
+    print("WELCOME to the CesarLenKey! This is a program, where you can crypt your text!")
+    print('{:^77}'.format(
+        "You can use Cyrillic or Latin alphabet and some specials chars."))
+    print('{:^77}'.format("(just try it, there are interesting algo :)"))
+
+    print()
+
+
+def next_usage_message_print():
+    """
+    DOES:
+        выводит сообщение пользователю после очередного шифрования текста
+    """
+    print()
+
+    print('{:^77}'.format('Press any key to continue using program...'))
+    print('{:^77}'.format('(use Ctrl + Z to exit)'))
+
     print()
 
 
@@ -22,8 +39,8 @@ if __name__ == "__main__":
 
     while (True):
         # MEANS: алфавит, используемый во всей программе
-        alph = '!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrs\
-                tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё'
+        alph = "!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrs" \
+            + "tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё"
 
         # ввод пользователем текста
 
@@ -31,9 +48,10 @@ if __name__ == "__main__":
         text: list[str] = []
 
         while text == []:
-            print('Enter text to crypt (1 string):')
+            print('{:^77}'.format('Enter text to crypt (1 string):'))
             try:
                 text = input().split()
+
             except EOFError or KeyboardInterrupt:
                 exit()
 
@@ -47,7 +65,7 @@ if __name__ == "__main__":
         # MEANS: введенное пользователем число
         input_number: int = -1
 
-        print('Encryption (Enter 1) or Decryption (Enter 0)?')
+        print('{:^77}'.format('Encryption (Enter 1) or Decryption (Enter 0)?'))
         while input_number == -1:
             try:
                 input_number = int(input())
@@ -55,9 +73,11 @@ if __name__ == "__main__":
                     if case(1):
                         crypt_type = CryptType.encr
                         break
+
                     if case(0):
                         crypt_type = CryptType.decr
                         break
+
                     if case():  # default
                         print("Enter 0 or 1")
                         input_number = -1
@@ -72,30 +92,43 @@ if __name__ == "__main__":
         print()
 
         # ввод пользователем ключа
-        print('Enter key:')
+        print('{:^77}'.format('Enter cryption key (some string):'))
 
         # MEANS: введенный пользователем ключ
-        key: str
+        key: str = ""
 
         try:
-            key = input()
+            while key == "":
+                key = input().replace(' ', "")
 
         except EOFError or KeyboardInterrupt:
             exit()
 
         # перемешивание алфавита
-        alph = shuffled_alphabet(key, alph)
+        try:
+            alph = shuffled_alphabet(key, alph)
 
-        # MEANS: за(рас)шифрованный текст
+        except ValueError:
+            # (учитывая, что алфавит здесь фиксирован, недостижимо)
+            print("You're using wrong alphabet")
+            exit()
+
+        # MEANS: шифрованный текст
         crypted_text: list[str]
 
         # шифрование всего набора слов (введенного текста)
         crypted_text = [crypted_word(
-            word, crypt_type, key, alph) for word in text]
+            word, key, alph, crypt_type) for word in text]
 
         print()
-        print('Result (with key ' + key + '):')
+
+        print('{:^77}'.format('Result (with key ' + key + '):'))
         print(' '.join(crypted_text))
-        print()
-        print('Press any key to continue...')
-        input()
+
+        next_usage_message_print()
+
+        try:
+            input()
+
+        except EOFError or KeyboardInterrupt:
+            exit()
