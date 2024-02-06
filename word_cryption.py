@@ -17,7 +17,7 @@ class CryptType(Enum):
     decr = False
 
 
-def crypted_word(word: str, shd: CryptType, key: str, alphabet: str) -> str:
+def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
     """
     DOES:
         шифрует слово, используя сдвиг по алфавиту
@@ -25,42 +25,43 @@ def crypted_word(word: str, shd: CryptType, key: str, alphabet: str) -> str:
 
     ARGS:
         word (str): исходной слово
-        shd (CryptType): шифрование/расшифрование
-        alphabet (str): заданный алфавит
+        crypt_type (CryptType): шифрование/расшифрование
+        alph (str): заданный алфавит
 
     RETURNS:
-        str: за(рас)шифрованное слово
+        str: шифрованное слово
     """
 
     # если длина алфавита делилась нацело на длину слова - разворачиваем
     # (сделано для большего усложнения алгоритмма шифрования)
-    if len(alphabet) % len(word) == 0:
-        word = ''.join(reversed(word))
+    if len(alph) % len(word) == 0:
+        word = "".join(reversed(word))
 
-    w = len(word)
-    k = len(key)
-    # MEANS: сдвиг по алфавиту (весёлая формула)
-    shift = abs(round(25*(cos(w/k - 1)/sin(k/w + 1))
-                * (sin(w/k + 1)/cos(k/w - 1))))
+    # MEANS: сдвиг по алфавиту (весёлая формула :)
+    shift = abs(round(25*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
+                * (sin(len(word)/len(key) + 1)/cos(len(key)/len(word) - 1))))
 
-    # MEANS: за(рас)шифрованное слово
+    # MEANS: шифрованное слово
     crypted_word = ""
 
     # алгоритм самого Цезаря
     for char in word:
-        if char in alphabet:
-            index = alphabet.index(char)
+        if char in alph:
+            # MEANS: индекс текущего элемента в этом алфавите
+            index = alph.index(char)
+
             # для простого выбора используем самописный switch-case
-            for case in switch(shd):
+            for case in switch(crypt_type):
                 if case(CryptType.encr):
-                    crypted_word += alphabet[(index + shift) % len(alphabet)]
+                    crypted_word += alph[(index + shift) % len(alph)]
                     break
+
                 if case(CryptType.decr):
                     # в таком случае делаем обратный сдвиг
-                    crypted_word += alphabet[(index - shift) % len(alphabet)]
+                    crypted_word += alph[(index - shift) % len(alph)]
                     break
         else:
-            # (допускается случай, когда буквы нет в словаре)
+            # (допускается случай, когда буквы нет в алфавите)
             crypted_word += char
 
     return crypted_word

@@ -16,15 +16,15 @@ def remaked_key(key: str, max_len: int) -> list[int]:
 
     # удаляем повторяющиеся символы, пробелы, сохраняя порядок
     if len(key) != len(set(key)):
-        key = ''.join(dict.fromkeys(key))
-    key = key.replace(' ', '')
+        key = "".join(dict.fromkeys(key))
+    key = key.replace(' ', "")
 
     # обрезаем, если ключ оказался длиннее алфавита
     if len(key) > max_len:
         key = key[0:max_len]
 
     # если после этих операций ключ оказался пустым, то он некорректен
-    if (key == ''):
+    if (key == ""):
         raise ValueError("invalid key")
 
     # MEANS: последовательность чисел от 0 до длины ключа
@@ -55,7 +55,7 @@ def piecewise_shuffled_alphabet(key: str, alph: str) -> list[str]:
         raise ValueError("invalid alphabet")
 
     # если алфавит ничего не содержит - с ним невозможно работать
-    if (alph == ''):
+    if (alph == ""):
         return list(alph)
 
     # MEANS: список делителей числа - длины алфавита
@@ -78,6 +78,7 @@ def piecewise_shuffled_alphabet(key: str, alph: str) -> list[str]:
         for i in range(len(alph_divs) - 1, 0, -1):
             if len(numbed_key) > alph_divs[i]:
                 # при нахождении такового, берем предыдущий, чтобы не обрезать ключ
+                # (берём i + 1 так как идём с конца)
                 needed_div = alph_divs[i + 1]
                 break
     # в цикле выше не нужно никаких рассмотрений доп. случаев,
