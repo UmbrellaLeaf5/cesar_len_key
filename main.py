@@ -99,7 +99,7 @@ if __name__ == "__main__":
 
         try:
             while key == "":
-                key = input().replace(' ', "")
+                key = input().replace(" ", "")
 
         except EOFError or KeyboardInterrupt:
             exit()
