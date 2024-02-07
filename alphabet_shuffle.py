@@ -129,4 +129,10 @@ def shuffled_alphabet(key: str, alph: str) -> str:
     # перемешиваем весь алфавит (куски как элементы) в соотв. с ключем
     shuffled_alph = [x for _, x in sorted(zip(numbed_key, listed_alph))]
 
-    return "".join(shuffled_alph)
+    try:
+        # возвращаем строку (ставя конечный элемент вначало)
+        # (сделано для большего усложнения алгоритмма шифрования)
+        return "".join(shuffled_alph[3::]) + "".join(shuffled_alph[0:3])
+    except:
+        # если элементов меньше 3, возвращаем, как есть
+        return "".join(shuffled_alph)
