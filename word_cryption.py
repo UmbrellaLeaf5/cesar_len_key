@@ -41,7 +41,7 @@ def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
     koef = abs(len(key)*sin(len(word)*len(key))) + len(key)
 
     # MEANS: сдвиг по алфавиту (весёлая формула :)
-    shift = abs(round(koef*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
+    shift = abs(round((koef**2)*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
                 * (sin(len(word)/len(key) + 1)/cos(len(key)/len(word) - 1))))
 
     # MEANS: шифрованное слово
