@@ -10,3 +10,6 @@
 *.docx
 *.doc
 *.ini
+
+# My files
+pass_main.py
