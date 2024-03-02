@@ -6,10 +6,15 @@
 *.pytest_cache
 .venv
 
+# Other Folders
+bin/
+cpp/
+rc/
+
+# My files
+pass_main.py
+
 # Other files
 *.docx
 *.doc
 *.ini
-
-# My files
-pass_main.py
