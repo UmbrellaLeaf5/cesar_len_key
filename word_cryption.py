@@ -9,7 +9,7 @@ class CryptType(Enum):
     MEANS
         тип операции: зашифровать или расшифровать
 
-    ARGS:
+    Args:
         Enum (bool): тип операции
     """
 
@@ -19,16 +19,16 @@ class CryptType(Enum):
 
 def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
     """
-    DOES:
+    Does:
         шифрует слово, используя сдвиг по алфавиту
         (вдохновлено шифром Цезаря)
 
-    ARGS:
+    Args:
         word (str): исходной слово
         crypt_type (CryptType): шифрование/расшифрование
         alph (str): заданный алфавит
 
-    RETURNS:
+    Returns:
         str: шифрованное слово
     """
 
@@ -37,20 +37,20 @@ def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
     if len(alph) % len(word) == 0:
         word = "".join(reversed(word))
 
-    # MEANS: весёлый коэффициент
+    # Means: весёлый коэффициент
     koef = abs(len(key)*sin(len(word)*len(key))) + len(key)
 
-    # MEANS: сдвиг по алфавиту (весёлая формула :)
+    # Means: сдвиг по алфавиту (весёлая формула :)
     shift = abs(round((koef**2)*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
                 * (sin(len(word)/len(key) + 1)/cos(len(key)/len(word) - 1))))
 
-    # MEANS: шифрованное слово
+    # Means: шифрованное слово
     crypted_word = ""
 
     # алгоритм самого Цезаря
     for char in word:
         if char in alph:
-            # MEANS: индекс текущего элемента в этом алфавите
+            # Means: индекс текущего элемента в этом алфавите
             index = alph.index(char)
 
             # для простого выбора используем самописный switch-case

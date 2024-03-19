@@ -2,17 +2,17 @@
 
 def divisors_list(x: int) -> list[int]:
     """
-    DOES:
+    Does:
         вычисляет уникальные делители числа
 
-    ARGS:
+    Args:
         x (int): число
 
-    RETURNS:
+    Returns:
         list: список делителей
     """
 
-    # MEANS: список делителей
+    # Means: список делителей
     d_list: list[int]
 
     # создание списка делителей перебором до корня
@@ -27,11 +27,11 @@ def divisors_list(x: int) -> list[int]:
 
 class switch(object):
     """
-    MEANS:
+    Means:
         специальный класс switch-case
         (использование почти аналогично C++)
 
-    ARGS:
+    Args:
         object (object): объект, по которому происходит выборка
     """
 
@@ -44,7 +44,7 @@ class switch(object):
 
     def __iter__(self):
         """
-        DOES:
+        Does:
             возвращает один раз метод match и завершается
             (нужен для использования в цикле for)
 
@@ -57,10 +57,10 @@ class switch(object):
 
     def match(self, *args) -> bool:
         """
-        DOES:
+        Does:
             указывает, нужно ли заходить в тестовый вариант
 
-        RETURNS:
+        Returns:
             bool: нужно ли заходить в тестовый вариант
         """
 
