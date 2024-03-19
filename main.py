@@ -7,7 +7,7 @@ from word_cryption import crypted_word, CryptType
 
 def welcome_message_print():
     """
-    DOES:
+    Does:
         выводит приветственное сообщение пользователю
     """
 
@@ -23,7 +23,7 @@ def welcome_message_print():
 
 def next_usage_message_print():
     """
-    DOES:
+    Does:
         выводит сообщение пользователю после очередного шифрования текста
     """
     print()
@@ -38,13 +38,13 @@ if __name__ == "__main__":
     welcome_message_print()
 
     while (True):
-        # MEANS: алфавит, используемый во всей программе
+        # Means: алфавит, используемый во всей программе
         alph = "!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrs" \
             + "tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё"
 
         # ввод пользователем текста
 
-        # MEANS: введенный пользователем текст
+        # Means: введенный пользователем текст
         text: list[str] = []
 
         while text == []:
@@ -59,10 +59,10 @@ if __name__ == "__main__":
 
         # ввод пользователем числа - типа операции
 
-        # MEANS: тип операции
+        # Means: тип операции
         crypt_type: CryptType = CryptType.decr
 
-        # MEANS: введенное пользователем число
+        # Means: введенное пользователем число
         input_number: int = -1
 
         print('{:^77}'.format('Encryption (Enter 1) or Decryption (Enter 0)?'))
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         # ввод пользователем ключа
         print('{:^77}'.format('Enter cryption key (some string):'))
 
-        # MEANS: введенный пользователем ключ
+        # Means: введенный пользователем ключ
         key: str = ""
 
         try:
@@ -113,7 +113,7 @@ if __name__ == "__main__":
             print("You're using wrong alphabet")
             exit()
 
-        # MEANS: шифрованный текст
+        # Means: шифрованный текст
         crypted_text: list[str]
 
         # шифрование всего набора слов (введенного текста)
