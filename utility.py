@@ -12,6 +12,8 @@ def divisors_list(x: int) -> list[int]:
         list: список делителей
     """
 
+    ic()
+
     # Means: список делителей
     d_list: list[int]
 

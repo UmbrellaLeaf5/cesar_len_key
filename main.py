@@ -3,6 +3,9 @@ from sys import exit
 from utility import switch
 from alphabet_shuffle import shuffled_alphabet
 from word_cryption import crypted_word, CryptType
+from icecream import install, ic
+install()
+ic.disable()
 
 
 def welcome_message_print():
@@ -27,6 +30,8 @@ def next_usage_message_print():
         выводит сообщение пользователю после очередного шифрования текста
     """
     print()
+
+    ic()
 
     print('{:^77}'.format('Press any key to continue using program...'))
     print('{:^77}'.format('(use Ctrl + Z to exit)'))
