@@ -33,15 +33,15 @@ def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
     """
 
     # если длина алфавита делилась нацело на длину слова - разворачиваем
-    # (сделано для большего усложнения алгоритмма шифрования)
+    # (сделано для большего усложнения алгоритма шифрования)
     if len(alph) % len(word) == 0:
         word = "".join(reversed(word))
 
     # Means: весёлый коэффициент
-    koef = abs(len(key)*sin(len(word)*len(key))) + len(key)
+    coef = abs(len(key)*sin(len(word)*len(key))) + len(key)
 
     # Means: сдвиг по алфавиту (весёлая формула :)
-    shift = abs(round((koef**2)*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
+    shift = abs(round((coef**2)*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
                 * (sin(len(word)/len(key) + 1)/cos(len(key)/len(word) - 1))))
 
     # Means: шифрованное слово

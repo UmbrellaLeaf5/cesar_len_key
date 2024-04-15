@@ -119,7 +119,7 @@ def shuffled_alphabet(key: str, alph: str) -> str:
     # Means: ключ, содержащий в себе только числа, в порядке символов
     numbed_key = remaked_key(key, len(alph))
 
-    # если длина элемента кусочного словаря длинне ключа - дописываем его
+    # если длина элемента кусочного словаря длине ключа - дописываем его
     if len(listed_alph) > len(numbed_key):
         numbed_key.extend(range(len(numbed_key), len(listed_alph)))
     # иначе обрезаем
@@ -130,8 +130,8 @@ def shuffled_alphabet(key: str, alph: str) -> str:
     shuffled_alph = [x for _, x in sorted(zip(numbed_key, listed_alph))]
 
     try:
-        # возвращаем строку (ставя конечный элемент вначало)
-        # (сделано для большего усложнения алгоритмма шифрования)
+        # возвращаем строку (ставя конечный элемент в начало)
+        # (сделано для большего усложнения алгоритма шифрования)
         return "".join(shuffled_alph[3::]) + "".join(shuffled_alph[0:3])
     except:
         # если элементов меньше 3, возвращаем, как есть
