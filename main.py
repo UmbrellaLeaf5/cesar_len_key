@@ -15,7 +15,7 @@ def PrintWelcomeMessage():
     print("WELCOME to the CesarLenKey! This is a program, where you can crypt your text!")
     print('{:^77}'.format(
         "You can use Cyrillic or Latin alphabet and some specials chars."))
-    print('{:^77}'.format("(just try it, there are interesting algo :)"))
+    print('{:^77}'.format("(just try it, there is interesting algo :)"))
 
     print()
 
