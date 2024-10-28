@@ -1,7 +1,29 @@
-from utility import divisors_list
+def DivisorsList(x: int) -> list[int]:
+    """
+    Does:
+        вычисляет уникальные делители числа
+
+    Args:
+        x (int): число
+
+    Returns:
+        list: список делителей
+    """
+
+    # Means: список делителей
+    d_list: list[int]
+
+    # создание списка делителей перебором до корня
+    d_list = [i for i in range(1, int(x ** 0.5) + 1) if x % i == 0]
+
+    # добавляем делители x // i (кроме случая, когда i равно x // i) в обратном порядке
+    d_list += [x // i for i in reversed(d_list) if i != x // i]
+
+    # возвращаем этот список отсортированным
+    return sorted(d_list)
 
 
-def remaked_key(key: str, max_len: int) -> list[int]:
+def RemadeKey(key: str, max_len: int) -> list[int]:
     """
     Does: 
         преобразует ключ для использования в перемешивании алфавита
@@ -37,7 +59,7 @@ def remaked_key(key: str, max_len: int) -> list[int]:
     return numbed_key
 
 
-def piecewise_shuffled_alphabet(key: str, alph: str) -> list[str]:
+def PiecewiseShuffledAlphabet(key: str, alph: str) -> list[str]:
     """
     Does: 
         перемешивает куски алфавита, используя ключ
@@ -59,10 +81,10 @@ def piecewise_shuffled_alphabet(key: str, alph: str) -> list[str]:
         return list(alph)
 
     # Means: список делителей числа - длины алфавита
-    alph_divs = divisors_list(len(alph))
+    alph_divs = DivisorsList(len(alph))
 
     # Means: ключ, содержащий в себе только числа, в порядке символов
-    numbed_key = remaked_key(key, len(alph))
+    numbed_key = RemadeKey(key, len(alph))
 
     # Means: нужный делитель, по которому будет мешаться алфавит
     # (изначально равен последнему, чтобы обработать случай len(numbed_key) == len(alph))
@@ -100,7 +122,7 @@ def piecewise_shuffled_alphabet(key: str, alph: str) -> list[str]:
     return listed_alph
 
 
-def shuffled_alphabet(key: str, alph: str) -> str:
+def ShuffledAlphabet(key: str, alph: str) -> str:
     """
     Does:
         перемешивает алфавит, используя ключ
@@ -114,10 +136,10 @@ def shuffled_alphabet(key: str, alph: str) -> str:
     """
 
     # Means: кусочный алфавит, в котором каждая часть перемешана по ключу
-    listed_alph = piecewise_shuffled_alphabet(key, alph)
+    listed_alph = PiecewiseShuffledAlphabet(key, alph)
 
     # Means: ключ, содержащий в себе только числа, в порядке символов
-    numbed_key = remaked_key(key, len(alph))
+    numbed_key = RemadeKey(key, len(alph))
 
     # если длина элемента кусочного словаря длине ключа - дописываем его
     if len(listed_alph) > len(numbed_key):

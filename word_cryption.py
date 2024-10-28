@@ -1,8 +1,6 @@
 from enum import Enum
 from math import cos, sin
 
-from utility import switch
-
 
 class CryptType(Enum):
     """
@@ -17,7 +15,7 @@ class CryptType(Enum):
     decr = False
 
 
-def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
+def CryptedWord(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
     """
     Does:
         шифрует слово, используя сдвиг по алфавиту
@@ -38,14 +36,14 @@ def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
         word = "".join(reversed(word))
 
     # Means: весёлый коэффициент
-    coef = abs(len(key)*sin(len(word)*len(key))) + len(key)
+    coef: float = abs(len(key)*sin(len(word)*len(key))) + len(key)
 
     # Means: сдвиг по алфавиту (весёлая формула :)
-    shift = abs(round((coef**2)*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
-                * (sin(len(word)/len(key) + 1)/cos(len(key)/len(word) - 1))))
+    shift: int = abs(round((coef**2)*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
+                           * (sin(len(word)/len(key) + 1)/cos(len(key)/len(word) - 1))))
 
     # Means: шифрованное слово
-    crypted_word = ""
+    crypted_word: str = ""
 
     # алгоритм самого Цезаря
     for char in word:
@@ -53,16 +51,13 @@ def crypted_word(word: str, key: str, alph: str, crypt_type: CryptType) -> str:
             # Means: индекс текущего элемента в этом алфавите
             index = alph.index(char)
 
-            # для простого выбора используем самописный switch-case
-            for case in switch(crypt_type):
-                if case(CryptType.encr):
+            match crypt_type:
+                case CryptType.encr:
                     crypted_word += alph[(index + shift) % len(alph)]
-                    break
 
-                if case(CryptType.decr):
+                case CryptType.decr:
                     # в таком случае делаем обратный сдвиг
                     crypted_word += alph[(index - shift) % len(alph)]
-                    break
         else:
             # (допускается случай, когда буквы нет в алфавите)
             crypted_word += char

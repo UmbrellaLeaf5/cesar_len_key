@@ -1,14 +1,10 @@
 from sys import exit
 
-from utility import switch
-from alphabet_shuffle import shuffled_alphabet
-from word_cryption import crypted_word, CryptType
-from icecream import install, ic
-install()
-ic.disable()
+from alphabet_shuffle import ShuffledAlphabet
+from word_cryption import CryptedWord, CryptType
 
 
-def welcome_message_print():
+def PrintWelcomeMessage():
     """
     Does:
         выводит приветственное сообщение пользователю
@@ -24,14 +20,12 @@ def welcome_message_print():
     print()
 
 
-def next_usage_message_print():
+def PrintNextUsageMessage():
     """
     Does:
         выводит сообщение пользователю после очередного шифрования текста
     """
     print()
-
-    ic()
 
     print('{:^77}'.format('Press any key to continue using program...'))
     print('{:^77}'.format('(use Ctrl + Z to exit)'))
@@ -40,7 +34,7 @@ def next_usage_message_print():
 
 
 if __name__ == "__main__":
-    welcome_message_print()
+    PrintWelcomeMessage()
 
     while (True):
         # Means: алфавит, используемый во всей программе
@@ -74,19 +68,16 @@ if __name__ == "__main__":
         while input_number == -1:
             try:
                 input_number = int(input())
-                for case in switch(input_number):
-                    if case(1):
+                match input_number:
+                    case 1:
                         crypt_type = CryptType.encr
-                        break
 
-                    if case(0):
+                    case 0:
                         crypt_type = CryptType.decr
-                        break
 
-                    if case():  # default
+                    case _:  # default
                         print("Enter 0 or 1")
                         input_number = -1
-                        break
 
             except ValueError:
                 print("Enter 0 or 1")
@@ -111,7 +102,7 @@ if __name__ == "__main__":
 
         # перемешивание алфавита
         try:
-            alph = shuffled_alphabet(key, alph)
+            alph = ShuffledAlphabet(key, alph)
 
         except ValueError:
             # (учитывая, что алфавит здесь фиксирован, недостижимо)
@@ -122,7 +113,7 @@ if __name__ == "__main__":
         crypted_text: list[str]
 
         # шифрование всего набора слов (введенного текста)
-        crypted_text = [crypted_word(
+        crypted_text = [CryptedWord(
             word, key, alph, crypt_type) for word in text]
 
         print()
@@ -130,7 +121,7 @@ if __name__ == "__main__":
         print('{:^77}'.format('Result (with key ' + key + '):'))
         print(' '.join(crypted_text))
 
-        next_usage_message_print()
+        PrintNextUsageMessage()
 
         try:
             input()
