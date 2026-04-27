@@ -18,3 +18,4 @@ pass_main.py
 *.docx
 *.doc
 *.ini
+*.env
