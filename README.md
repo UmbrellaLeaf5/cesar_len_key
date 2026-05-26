@@ -2,104 +2,157 @@
 
 ## About
 
-Это криптографическая программа, реализующая усовершенствованный алгоритм шифрования на основе шифра Цезаря с динамическим ключом и нелинейными преобразованиями. Проект сочетает классические подходы с современными математическими методами для создания надежного шифрования.
+A cryptographic program implementing an enhanced Caesar cipher algorithm with a dynamic key and non-linear transformations. The project combines classical approaches with modern mathematical methods to create robust encryption.
 
-### Особенности алгоритма шифрования
+### Key features
 
-- **Гибкий перемешанный алфавит** на основе пользовательского ключа
-- **Динамический сдвиг** с использованием тригонометрических функций
-- **Несколько уровней преобразований** для усиления криптостойкости
-- **Поддержка расширенного набора символов**: латиница, кириллица, специальные символы
+- **Flexible shuffled alphabet** based on the user's key
+- **Dynamic shift** using trigonometric functions
+- **Multiple transformation layers** for increased cryptographic strength
+- **Extended character support**: Latin, Cyrillic, special characters
 
-### Математическая основа
+### Mathematical foundation
 
-#### 1. Генерация перемешанного алфавита
+#### 1. Shuffled alphabet generation
 
 ```python
 def PiecewiseShuffledAlphabet(key: str, alph: str) -> list[str]:
 ```
 
-- Вычисляет делители длины алфавита для оптимального разбиения
-- Удаляет дубликаты и пробелы из ключа
-- Преобразует ключ в числовую последовательность
-- Дробит алфавит на блоки и перемешивает каждый блок по ключу
-- Объединяет блоки с дополнительной перестановкой
+- Computes divisors of the alphabet length for optimal partitioning
+- Removes duplicates and spaces from the key
+- Converts the key into a numeric sequence
+- Splits the alphabet into blocks and shuffles each block by the key
+- Merges blocks with additional permutation
 
-#### 2. Расчет динамического сдвига
+#### 2. Dynamic shift calculation
 
 ```python
-coef: float = abs(len(key)*sin(len(word)*len(key))) + len(key)
-shift: int = abs(round((coef**2)*(cos(len(word)/len(key) - 1)/sin(len(key)/len(word) + 1))
-               * (sin(len(word)/len(key) + 1)/cos(len(key)/len(word) - 1))))
+coef: float = abs(len(key) * sin(len(word) * len(key))) + len(key)
+shift: int = abs(round(
+    (coef ** 2)
+    * (cos(len(word) / len(key) - 1) / sin(len(key) / len(word) + 1))
+    * (sin(len(word) / len(key) + 1) / cos(len(key) / len(word) - 1))
+))
 ```
 
-Используется нелинейная комбинация тригонометрических функций от параметров ключа и текста, что делает сдвиг непредсказуемым.
+Uses a non-linear combination of trigonometric functions of the key and text parameters, making the shift unpredictable.
 
-#### 3. Дополнительные преобразования
+#### 3. Additional transformations
 
-- **Реверс текста** при определенных условиях длины
-- **Циклический сдвиг** алфавитных блоков
-- **Модульная арифметика** для работы с алфавитом
+- **Text reversal** under certain length conditions
+- **Cyclic shift** of alphabet blocks
+- **Modular arithmetic** for alphabet operations
 
-### Технические детали
+### Technical details
 
-- **Язык программирования**: Python 3
-- **Тип шифрования**: Симметричное блочное шифрование
-- **Математический аппарат**: Тригонометрические функции, модульная арифметика, теория чисел
-- **Поддерживаемые символы**: 172 символа (латиница, кириллица, пунктуация, специальные символы)
+- **Language**: Python 3.12
+- **Encryption type**: Symmetric block encryption
+- **Math foundation**: Trigonometric functions, modular arithmetic, number theory
+- **Supported characters**: 150 symbols (Latin, Cyrillic, punctuation, special characters)
 
-## Алгоритм работы
+## Algorithm
 
-### Шаг 1: Подготовка алфавита
+### Step 1: Alphabet preparation
 
-1. Входной ключ очищается от дубликатов и пробелов
-2. Вычисляются оптимальные размеры блоков на основе делителей длины алфавита
-3. Алфавит разбивается на блоки и перемешивается по ключу
-4. Блоки переупорядочиваются для финального алфавита
+1. Input key is cleaned from duplicates and spaces
+2. Optimal block sizes are calculated based on alphabet length divisors
+3. Alphabet is split into blocks and shuffled by the key
+4. Blocks are reordered to form the final alphabet
 
-### Шаг 2: Расчет параметров шифрования
+### Step 2: Encryption parameter calculation
 
-1. На основе длин ключа и текста вычисляется коэффициент сложности
-2. Используя тригонометрические функции, рассчитывается динамический сдвиг
-3. При определенных условиях применяется дополнительный реверс текста
+1. A complexity coefficient is computed from key and text lengths
+2. A dynamic shift is calculated using trigonometric functions
+3. Additional text reversal is applied under specific conditions
 
-### Шаг 3: Шифрование/дешифрование
+### Step 3: Encryption / decryption
 
-1. Каждый символ преобразуется через перемешанный алфавит
-2. Применяется динамический сдвиг с модульной арифметикой
-3. Символы вне алфавита сохраняются без изменений
+1. Each character is transformed through the shuffled alphabet
+2. Dynamic shift is applied with modular arithmetic
+3. Characters outside the alphabet are preserved unchanged
 
 ## Installation
 
-### Требования
+### Requirements
 
-- Python 3.8+
-- Стандартные библиотеки Python: `math`, `enum`, `sys`
+- Python 3.12+
+- Standard Python libraries: `math`, `enum`, `sys`
 
-### Установка
-
-```bash
-git clone https://github.com/your-username/cesarlenkey.git
-cd cesarlenkey
-```
-
-### Запуск
+### Setup
 
 ```bash
-python main.py
+git clone https://github.com/your-username/cesar_len_key.git
+cd cesar_len_key
+uv sync
 ```
 
-## Usage Examples
+### Running the interactive CLI
 
-### Шифрование
+```bash
+cesar-len-key
+```
+
+### Running the file encryption CLI
+
+```bash
+cesar-len-key-file input.txt -k mykey                    # encrypt
+cesar-len-key-file input.txt -k mykey -d                 # decrypt
+cesar-len-key-file input.txt -k mykey -o output.txt      # specify output
+```
+
+## Usage as a library in another project
+
+Add the package as a git dependency via `uv`:
+
+```bash
+# In your other project:
+uv add git+https://github.com/UmbrellaLeaf5/cesar_len_key
+```
+
+Then import and use the public API:
+
+```python
+from cesar_len_key import crypt_lines, crypt_words, CryptType, DEFAULT_ALPHABET
+
+# Encrypt a flat list of words
+words = ["password1", "secret_token"]
+encrypted = crypt_words(words, "master_key")
+decrypted = crypt_words(encrypted, "master_key", crypt_type=CryptType.decr)
+assert decrypted == words
+
+# Encrypt text line-by-line, preserving structure
+lines = ["service: my_login", "password: my_password", ""]
+encrypted_lines = crypt_lines(lines, "master_key")
+decrypted_lines = crypt_lines(encrypted_lines, "master_key", crypt_type=CryptType.decr)
+assert decrypted_lines == lines
+
+# Use a custom alphabet (optional)
+custom_alph = "abc123!@#"
+result = crypt_words(["hello"], "key", alphabet=custom_alph)
+```
+
+### Public API
+
+| Name               | Type     | Description                                    |
+| ------------------ | -------- | ---------------------------------------------- |
+| `crypt_lines`      | function | Encrypt/decrypt a list of strings line-by-line |
+| `crypt_words`      | function | Encrypt/decrypt a flat list of words           |
+| `CryptType`        | Enum     | `CryptType.encr` / `CryptType.decr`            |
+| `CryptedWord`      | function | Low-level single-word encryption               |
+| `DEFAULT_ALPHABET` | constant | The 150-character default alphabet             |
+
+## Usage examples
+
+### Interactive CLI (encryption)
 
 ```
 WELCOME to the CesarLenKey! This is a program, where you can crypt your text!
        You can use Cyrillic or Latin alphabet and some specials chars.
-                 (just try it, there are interesting algo :)
+                 (just try it, there is interesting algo :)
 
                        Enter text to crypt (1 string):
-Привет, ну как там с деньгами?
+Hello, how is it going?
 
                 Encryption (Enter 1) or Decryption (Enter 0)?
 1
@@ -108,22 +161,22 @@ WELCOME to the CesarLenKey! This is a program, where you can crypt your text!
 difiowefmjlkw2819
 
                     Result (with key difiowefmjlkw2819):
-pZbг^ЖI =Щ bиb VиУ h ДIt!LmwЁT
+bJ)wt0 yt! 3X jc 3tVwL$
 
                  Press any key to continue using program...
                            (use Ctrl + Z to exit)
 
 ```
 
-### Дешифрование
+### Interactive CLI (decryption)
 
 ```
 WELCOME to the CesarLenKey! This is a program, where you can crypt your text!
        You can use Cyrillic or Latin alphabet and some specials chars.
-                 (just try it, there are interesting algo :)
+                 (just try it, there is interesting algo :)
 
                        Enter text to crypt (1 string):
-pZbг^ЖI =Щ bиb VиУ h ДIt!LmwЁT
+bJ)wt0 yt! 3X jc 3tVwL$
 
                 Encryption (Enter 1) or Decryption (Enter 0)?
 0
@@ -132,37 +185,30 @@ pZbг^ЖI =Щ bиb VиУ h ДIt!LmwЁT
 difiowefmjlkw2819
 
                     Result (with key difiowefmjlkw2819):
-Привет, ну как там с деньгами?
+Hello, how is it going?
 
                  Press any key to continue using program...
                            (use Ctrl + Z to exit)
 
 ```
 
-## Technical Implementation
+## Key functions
 
-### Модульная структура
+- `DivisorsList()` — divisor computation for split optimization
+- `RemadeKey()` — key to numeric sequence conversion
+- `PiecewiseShuffledAlphabet()` — block-based alphabet shuffling
+- `ShuffledAlphabet()` — final shuffled alphabet assembly
+- `CryptedWord()` — core single-word encryption
+- `crypt_words()` — public: encrypt/decrypt a word list
+- `crypt_lines()` — public: encrypt/decrypt text line-by-line
 
-- **`alphabet_shuffle.py`** - алгоритмы перемешивания алфавита
-- **`word_cryption.py`** - основные функции шифрования
-- **`main.py`** - пользовательский интерфейс
+## Future development
 
-### Ключевые функции
+- [ ] Graphical interface (Tkinter/PyQt)
+- [ ] Performance benchmarks and cryptanalysis
+- [ ] Additional mathematical transformations
+- [ ] Configurable alphabet modes
 
-- `DivisorsList()` - вычисление делителей для оптимизации разбиения
-- `RemadeKey()` - преобразование ключа в числовую последовательность
-- `PiecewiseShuffledAlphabet()` - блочное перемешивание алфавита
-- `ShuffledAlphabet()` - финальная сборка перемешанного алфавита
-- `CryptedWord()` - основная функция шифрования слова
+## Security notes
 
-## Future Development
-
-- [ ] Графический интерфейс (Tkinter/PyQt)
-- [ ] Поддержка файлового ввода/вывода
-- [ ] Режимы работы с разными алфавитами
-- [ ] Дополнительные математические преобразования
-- [ ] Бенчмарки производительности и криптоанализ
-
-## Security Notes
-
-⚠️ **Важно**: Данный алгоритм предназначен для образовательных целей. Для защиты критически важной информации используйте промышленные стандарты шифрования (AES, RSA, etc.).
+⚠️ **Important**: This algorithm is intended for educational and personal use. For protecting critically important information, use industry-standard encryption (AES, RSA, etc.).
