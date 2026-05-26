@@ -1,7 +1,7 @@
 from sys import exit
 
-from alphabet_shuffle import ShuffledAlphabet
-from word_cryption import CryptedWord, CryptType
+from cryptor import DEFAULT_ALPHABET, crypt_words
+from word_cryption import CryptType
 
 
 def PrintWelcomeMessage():
@@ -29,7 +29,7 @@ def PrintNextUsageMessage():
   print()
 
   print("{:^77}".format("Press any key to continue using program..."))
-  print("{:^77}".format("(use Ctrl + Z to exit)"))
+  print("{:^77}".format("(use Ctrl + C to exit)"))
 
   print()
 
@@ -39,10 +39,7 @@ if __name__ == "__main__":
 
   while True:
     # Means: алфавит, используемый во всей программе
-    alph = (
-      "!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrs"
-      + "tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё"
-    )
+    alph = DEFAULT_ALPHABET
 
     # ввод пользователем текста
 
@@ -103,20 +100,8 @@ if __name__ == "__main__":
     except (EOFError, KeyboardInterrupt):
       exit()
 
-    # перемешивание алфавита
-    try:
-      alph = ShuffledAlphabet(key, alph)
-
-    except ValueError:
-      # (учитывая, что алфавит здесь фиксирован, недостижимо)
-      print("You're using wrong alphabet")
-      exit()
-
-    # Means: шифрованный текст
-    crypted_text: list[str]
-
     # шифрование всего набора слов (введенного текста)
-    crypted_text = [CryptedWord(word, key, alph, crypt_type) for word in text]
+    crypted_text = crypt_words(text, key, alph, crypt_type)
 
     print()
 
