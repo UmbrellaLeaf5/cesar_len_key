@@ -1,6 +1,6 @@
 import pytest
 
-from word_cryption import CryptedWord, CryptType
+from cesar_len_key import CryptedWord, CryptType
 
 
 class TestCryptType:

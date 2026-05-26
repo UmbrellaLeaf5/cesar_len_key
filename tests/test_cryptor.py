@@ -1,5 +1,4 @@
-from cryptor import DEFAULT_ALPHABET, crypt_lines, crypt_words
-from word_cryption import CryptType
+from cesar_len_key import DEFAULT_ALPHABET, CryptType, crypt_lines, crypt_words
 
 
 class TestCryptWords:

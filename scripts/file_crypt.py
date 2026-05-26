@@ -1,8 +1,7 @@
 import argparse
 import sys
 
-from cryptor import DEFAULT_ALPHABET, crypt_lines
-from word_cryption import CryptType
+from cesar_len_key import DEFAULT_ALPHABET, CryptType, crypt_lines
 
 
 def main() -> None:

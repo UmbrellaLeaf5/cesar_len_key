@@ -1,5 +1,5 @@
-from alphabet_shuffle import ShuffledAlphabet
-from word_cryption import CryptedWord, CryptType
+from .alphabet_shuffle import ShuffledAlphabet
+from .word_cryption import CryptedWord, CryptType
 
 
 # Means: алфавит по умолчанию, используемый во всей программе

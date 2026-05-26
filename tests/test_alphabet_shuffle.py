@@ -1,6 +1,6 @@
 import pytest
 
-from alphabet_shuffle import (
+from cesar_len_key.alphabet_shuffle import (
   DivisorsList,
   PiecewiseShuffledAlphabet,
   RemadeKey,

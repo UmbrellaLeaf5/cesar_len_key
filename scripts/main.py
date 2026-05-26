@@ -1,7 +1,6 @@
 from sys import exit
 
-from cryptor import DEFAULT_ALPHABET, crypt_words
-from word_cryption import CryptType
+from cesar_len_key import DEFAULT_ALPHABET, CryptType, crypt_words
 
 
 def PrintWelcomeMessage():
@@ -34,7 +33,12 @@ def PrintNextUsageMessage():
   print()
 
 
-if __name__ == "__main__":
+def main() -> None:
+  """
+  Does:
+      точка входа для интерактивного CLI-инструмента
+  """
+
   PrintWelcomeMessage()
 
   while True:
@@ -115,3 +119,7 @@ if __name__ == "__main__":
 
     except (EOFError, KeyboardInterrupt):
       exit()
+
+
+if __name__ == "__main__":
+  main()

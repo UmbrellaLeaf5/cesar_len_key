@@ -22,13 +22,14 @@ class TestFileCryptCLI:
 
       # шифруем
       exit_code = os.system(
-        f'python file_crypt.py "{input_path}" -k secret -o "{encrypted_path}"'
+        f'python scripts/file_crypt.py "{input_path}" -k secret -o "{encrypted_path}"'
       )
       assert exit_code == 0
 
       # расшифровываем
       exit_code = os.system(
-        f'python file_crypt.py "{encrypted_path}" -k secret -d -o "{decrypted_path}"'
+        f'python scripts/file_crypt.py "{encrypted_path}"'
+        f' -k secret -d -o "{decrypted_path}"'
       )
       assert exit_code == 0
 
@@ -51,7 +52,7 @@ class TestFileCryptCLI:
         f.write(original_content)
 
       exit_code = os.system(
-        f'python file_crypt.py "{input_path}" -k key -o "{output_path}"'
+        f'python scripts/file_crypt.py "{input_path}" -k key -o "{output_path}"'
       )
       assert exit_code == 0
       assert os.path.exists(output_path)
@@ -71,7 +72,7 @@ class TestFileCryptCLI:
         f.write("test")
 
       # ключ не указан — должно выйти с ошибкой
-      exit_code = os.system(f'python file_crypt.py "{input_path}" 2>/dev/null')
+      exit_code = os.system(f'python scripts/file_crypt.py "{input_path}" 2>/dev/null')
       assert exit_code != 0
 
   def test_nonexistent_input_file_shows_error(self) -> None:
@@ -79,7 +80,7 @@ class TestFileCryptCLI:
 
     # файл не существует
     exit_code = os.system(
-      'python file_crypt.py "/nonexistent/path/file.txt" -k key 2>/dev/null'
+      'python scripts/file_crypt.py "/nonexistent/path/file.txt" -k key 2>/dev/null'
     )
     assert exit_code != 0
 
@@ -95,7 +96,7 @@ class TestFileCryptCLI:
         pass
 
       exit_code = os.system(
-        f'python file_crypt.py "{input_path}" -k key -o "{output_path}"'
+        f'python scripts/file_crypt.py "{input_path}" -k key -o "{output_path}"'
       )
       assert exit_code == 0
 
