@@ -154,6 +154,7 @@ def ShuffledAlphabet(key: str, alph: str) -> str:
     # возвращаем строку (ставя конечный элемент в начало)
     # (сделано для большего усложнения алгоритма шифрования)
     return "".join(shuffled_alph[3::]) + "".join(shuffled_alph[0:3])
+
   except Exception:
     # если элементов меньше 3, возвращаем, как есть
     return "".join(shuffled_alph)

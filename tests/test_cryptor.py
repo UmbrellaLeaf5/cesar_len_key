@@ -1,4 +1,4 @@
-from cesar_len_key import DEFAULT_ALPHABET, CryptType, crypt_lines, crypt_words
+from cesar_len_key import DEFAULT_ALPHABET, CryptType, CryptedLines, CryptedWords
 
 
 class TestCryptWords:
@@ -9,8 +9,8 @@ class TestCryptWords:
 
     words = ["hello", "world", "test"]
     key = "secret"
-    encrypted = crypt_words(words, key, DEFAULT_ALPHABET, CryptType.encr)
-    decrypted = crypt_words(encrypted, key, DEFAULT_ALPHABET, CryptType.decr)
+    encrypted = CryptedWords(words, key, DEFAULT_ALPHABET, CryptType.encr)
+    decrypted = CryptedWords(encrypted, key, DEFAULT_ALPHABET, CryptType.decr)
     assert decrypted == words
 
   def test_deterministic_encryption(self) -> None:
@@ -18,20 +18,20 @@ class TestCryptWords:
 
     words = ["abc", "def"]
     key = "test"
-    a = crypt_words(words, key, DEFAULT_ALPHABET, CryptType.encr)
-    b = crypt_words(words, key, DEFAULT_ALPHABET, CryptType.encr)
+    a = CryptedWords(words, key, DEFAULT_ALPHABET, CryptType.encr)
+    b = CryptedWords(words, key, DEFAULT_ALPHABET, CryptType.encr)
     assert a == b
 
   def test_empty_list(self) -> None:
     """Пустой список возвращает пустой список."""
 
-    assert crypt_words([], "key", DEFAULT_ALPHABET) == []
+    assert CryptedWords([], "key", DEFAULT_ALPHABET) == []
 
   def test_non_alphabet_chars_unchanged(self) -> None:
     """Символы вне алфавита остаются без изменений."""
 
     words = ["a@b", "c#d"]
-    result = crypt_words(words, "key", "abcd", CryptType.encr)
+    result = CryptedWords(words, "key", "abcd", CryptType.encr)
     # @ и # не в алфавите, должны остаться
     assert "@" in result[0]
     assert "#" in result[1]
@@ -40,8 +40,8 @@ class TestCryptWords:
     """Разные ключи дают разный шифротекст."""
 
     words = ["hello"]
-    a = crypt_words(words, "ab", DEFAULT_ALPHABET, CryptType.encr)
-    b = crypt_words(words, "abcdefgh", DEFAULT_ALPHABET, CryptType.encr)
+    a = CryptedWords(words, "ab", DEFAULT_ALPHABET, CryptType.encr)
+    b = CryptedWords(words, "abcdefgh", DEFAULT_ALPHABET, CryptType.encr)
     assert a != b
 
 
@@ -53,22 +53,22 @@ class TestCryptLines:
 
     lines = ["hello world", "test line", ""]
     key = "secret"
-    encrypted = crypt_lines(lines, key, DEFAULT_ALPHABET, CryptType.encr)
-    decrypted = crypt_lines(encrypted, key, DEFAULT_ALPHABET, CryptType.decr)
+    encrypted = CryptedLines(lines, key, DEFAULT_ALPHABET, CryptType.encr)
+    decrypted = CryptedLines(encrypted, key, DEFAULT_ALPHABET, CryptType.decr)
     assert decrypted == lines
 
   def test_preserves_line_count(self) -> None:
     """Количество строк сохраняется после шифрования."""
 
     lines = ["first", "second", "third", ""]
-    result = crypt_lines(lines, "key", DEFAULT_ALPHABET)
+    result = CryptedLines(lines, "key", DEFAULT_ALPHABET)
     assert len(result) == len(lines)
 
   def test_preserves_word_count_per_line(self) -> None:
     """Количество слов в каждой строке сохраняется."""
 
     lines = ["one two three", "four five", "six"]
-    result = crypt_lines(lines, "key", DEFAULT_ALPHABET)
+    result = CryptedLines(lines, "key", DEFAULT_ALPHABET)
     for i, line in enumerate(lines):
       assert len(result[i].split()) == len(line.split())
 
@@ -76,7 +76,7 @@ class TestCryptLines:
     """Пустые строки остаются пустыми."""
 
     lines = ["hello", "", "world", ""]
-    result = crypt_lines(lines, "key", DEFAULT_ALPHABET)
+    result = CryptedLines(lines, "key", DEFAULT_ALPHABET)
     assert result[0] != ""
     assert result[1] == ""
     assert result[2] != ""
@@ -85,4 +85,4 @@ class TestCryptLines:
   def test_empty_list(self) -> None:
     """Пустой список возвращает пустой список."""
 
-    assert crypt_lines([], "key", DEFAULT_ALPHABET) == []
+    assert CryptedLines([], "key", DEFAULT_ALPHABET) == []

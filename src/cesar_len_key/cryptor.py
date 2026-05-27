@@ -5,11 +5,11 @@ from .word_cryption import CryptedWord, CryptType
 # Means: алфавит по умолчанию, используемый во всей программе
 DEFAULT_ALPHABET = (
   "!%()*+,-./0123456789:;<=>?ABCDEFGHIJKLMNOPQRSTUVWXYZ[]^`abcdefghijklmnopqrs"
-  + "tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё"
+  "tuvwxyz|~ЁАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмнопрстуфхцчшщъыьэюяё"
 )
 
 
-def crypt_words(
+def CryptedWords(
   words: list[str],
   key: str,
   alphabet: str = DEFAULT_ALPHABET,
@@ -36,7 +36,7 @@ def crypt_words(
   return [CryptedWord(word, key, shuffled, crypt_type) for word in words]
 
 
-def crypt_lines(
+def CryptedLines(
   lines: list[str],
   key: str,
   alphabet: str = DEFAULT_ALPHABET,

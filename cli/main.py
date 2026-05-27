@@ -1,6 +1,6 @@
 from sys import exit
 
-from cesar_len_key import DEFAULT_ALPHABET, CryptType, crypt_words
+from cesar_len_key import DEFAULT_ALPHABET, CryptedWords, CryptType
 
 
 def PrintWelcomeMessage():
@@ -33,7 +33,7 @@ def PrintNextUsageMessage():
   print()
 
 
-def main() -> None:
+def Main() -> None:
   """
   Does:
       точка входа для интерактивного CLI-инструмента
@@ -105,7 +105,7 @@ def main() -> None:
       exit()
 
     # шифрование всего набора слов (введенного текста)
-    crypted_text = crypt_words(text, key, alph, crypt_type)
+    crypted_text = CryptedWords(text, key, alph, crypt_type)
 
     print()
 
@@ -122,4 +122,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-  main()
+  Main()

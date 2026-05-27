@@ -1,10 +1,10 @@
 import argparse
 import sys
 
-from cesar_len_key import DEFAULT_ALPHABET, CryptType, crypt_lines
+from cesar_len_key import DEFAULT_ALPHABET, CryptedLines, CryptType
 
 
-def main() -> None:
+def Main() -> None:
   """
   Does:
       точка входа для CLI-инструмента шифрования файлов
@@ -55,7 +55,7 @@ def main() -> None:
     sys.exit(1)
 
   # шифрование строк
-  result = crypt_lines(lines, args.key, args.alphabet, crypt_type)
+  result = CryptedLines(lines, args.key, args.alphabet, crypt_type)
 
   # определение выходного пути
   output_path = args.output if args.output else args.input
@@ -73,4 +73,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-  main()
+  Main()
