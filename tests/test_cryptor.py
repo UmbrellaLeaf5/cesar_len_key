@@ -1,8 +1,8 @@
-from cesar_len_key import DEFAULT_ALPHABET, CryptType, CryptedLines, CryptedWords
+from cesar_len_key import DEFAULT_ALPHABET, CryptedLines, CryptedWords, CryptType
 
 
 class TestCryptWords:
-  """Тесты для функции crypt_words."""
+  """Тесты для функции CryptedWords."""
 
   def test_encrypt_decrypt_roundtrip(self) -> None:
     """Слово, зашифрованное и затем расшифрованное, совпадает с исходным."""
@@ -46,7 +46,7 @@ class TestCryptWords:
 
 
 class TestCryptLines:
-  """Тесты для функции crypt_lines."""
+  """Тесты для функции CryptedLines."""
 
   def test_roundtrip(self) -> None:
     """Строки, зашифрованные и расшифрованные, совпадают с исходными."""

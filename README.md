@@ -113,31 +113,31 @@ uv add git+https://github.com/UmbrellaLeaf5/cesar_len_key
 Then import and use the public API:
 
 ```python
-from cesar_len_key import crypt_lines, crypt_words, CryptType, DEFAULT_ALPHABET
+from cesar_len_key import CryptedLines, CryptedWords, CryptType, DEFAULT_ALPHABET
 
 # Encrypt a flat list of words
 words = ["password1", "secret_token"]
-encrypted = crypt_words(words, "master_key")
-decrypted = crypt_words(encrypted, "master_key", crypt_type=CryptType.decr)
+encrypted = CryptedWords(words, "master_key")
+decrypted = CryptedWords(encrypted, "master_key", crypt_type=CryptType.decr)
 assert decrypted == words
 
 # Encrypt text line-by-line, preserving structure
 lines = ["service: my_login", "password: my_password", ""]
-encrypted_lines = crypt_lines(lines, "master_key")
-decrypted_lines = crypt_lines(encrypted_lines, "master_key", crypt_type=CryptType.decr)
+encrypted_lines = CryptedLines(lines, "master_key")
+decrypted_lines = CryptedLines(encrypted_lines, "master_key", crypt_type=CryptType.decr)
 assert decrypted_lines == lines
 
 # Use a custom alphabet (optional)
 custom_alph = "abc123!@#"
-result = crypt_words(["hello"], "key", alphabet=custom_alph)
+result = CryptedWords(["hello"], "key", alphabet=custom_alph)
 ```
 
 ### Public API
 
 | Name               | Type     | Description                                    |
 | ------------------ | -------- | ---------------------------------------------- |
-| `crypt_lines`      | function | Encrypt/decrypt a list of strings line-by-line |
-| `crypt_words`      | function | Encrypt/decrypt a flat list of words           |
+| `CryptedLines`     | function | Encrypt/decrypt a list of strings line-by-line |
+| `CryptedWords`     | function | Encrypt/decrypt a flat list of words           |
 | `CryptType`        | Enum     | `CryptType.encr` / `CryptType.decr`            |
 | `CryptedWord`      | function | Low-level single-word encryption               |
 | `DEFAULT_ALPHABET` | constant | The 150-character default alphabet             |
@@ -199,16 +199,9 @@ Hello, how is it going?
 - `PiecewiseShuffledAlphabet()` — block-based alphabet shuffling
 - `ShuffledAlphabet()` — final shuffled alphabet assembly
 - `CryptedWord()` — core single-word encryption
-- `crypt_words()` — public: encrypt/decrypt a word list
-- `crypt_lines()` — public: encrypt/decrypt text line-by-line
-
-## Future development
-
-- [ ] Graphical interface (Tkinter/PyQt)
-- [ ] Performance benchmarks and cryptanalysis
-- [ ] Additional mathematical transformations
-- [ ] Configurable alphabet modes
+- `CryptedWords()` — public: encrypt/decrypt a word list
+- `CryptedLines()` — public: encrypt/decrypt text line-by-line
 
 ## Security notes
 
-⚠️ **Important**: This algorithm is intended for educational and personal use. For protecting critically important information, use industry-standard encryption (AES, RSA, etc.).
+**Important**: This algorithm is intended for educational and personal use. For protecting critically important information, use industry-standard encryption (AES, RSA, etc.).
